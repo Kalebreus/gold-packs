@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gold Packs | O Templo dos Colecionadores de Cartas & Unboxings</title>
+  <meta name="description" content="Gold Packs - A maior plataforma de colecionadores de cartas, cotações de mercado, vídeos de abertura de boosters e simulador interativo de packs lendários." />
+  <link rel="icon" type="image/png" href="./img/logo.png" />
+
+  <!-- Google Fonts: Outfit, Plus Jakarta Sans & Cinzel -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Estilos Principais -->
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body>
+  <!-- Canvas de Partículas / Confete Dourado -->
+  <canvas id="confettiCanvas"></canvas>
+
+  <!-- Container de Toasts -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- ==========================================================================
+       CABECALHO / NAVBAR FIXA
+       ========================================================================== -->
+  <header class="header">
+    <div class="container header-container">
+      <!-- Marca / Logo -->
+      <div class="logo-brand" onclick="switchTab('tabHome')">
+        <div class="logo-icon">GP</div>
+        <div class="logo-text-wrap">
+          <span class="logo-text-main">Gold Packs</span>
+          <span class="logo-text-sub">Collectors & Boosters</span>
+        </div>
+      </div>
+
+      <!-- Abas de Navegação -->
+      <nav class="nav-tabs">
+        <button class="nav-tab-btn active" data-tab="tabHome">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          <span>Início</span>
+        </button>
+        <button class="nav-tab-btn" data-tab="tabVault">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+          <span>Cofre de Cartas</span>
+        </button>
+        <button class="nav-tab-btn" data-tab="tabVideos">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+          <span>Gold Packs TV</span>
+        </button>
+        <button class="nav-tab-btn" data-tab="tabSimulator">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+          <span>Abrir Packs</span>
+        </button>
+      </nav>
+
+      <!-- Ações do Cabeçalho -->
+      <div class="nav-actions">
+        <!-- Botão Mute / Unmute Som Procedural -->
+        <button id="soundToggleBtn" class="sound-toggle-btn" title="Ligar/Desligar efeitos sonoros">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+        </button>
+
+        <!-- CTA Registrar Nova Carta -->
+        <button class="btn-cta-nav" onclick="switchTab('tabVault'); openAddCardModal();">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+          <span>+ Registrar Carta</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ==========================================================================
+         ABA 1: LANDING PAGE PROFISSIONAL (HOME)
+         ========================================================================== -->
+    <section id="tabHome" class="view-tab active">
+      <!-- Hero Section -->
+      <div class="hero-section">
+        <div class="hero-glow-orb-1"></div>
+        <div class="hero-glow-orb-2"></div>
+
+        <div class="container hero-grid">
+          <!-- Coluna Texto -->
+          <div class="hero-text-content">
+            <div class="hero-badge-live">
+              <span class="pulse-dot"></span>
+              <span>A MAIOR PLATAFORMA DE TCG & UNBOXINGS DO BRASIL</span>
+            </div>
+            
+            <h1 class="hero-title">
+              O Templo Dourado dos <span class="text-gold-gradient">Colecionadores</span> de Cartas
+            </h1>
+
+            <p class="hero-desc">
+              Gerencie seu cofre de cartas raras com cotação de mercado em tempo real, publique seus vídeos abrindo boosters e sinta a adrenalina de tirar cartas míticas em nosso simulador 3D.
+            </p>
+
+            <div class="hero-actions">
+              <button class="btn btn-gold" onclick="switchTab('tabVault')">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                Explorar Cofre de Cartas
+              </button>
+
+              <button class="btn btn-gold-outline" onclick="switchTab('tabSimulator')">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                Abrir Booster Dourado
+              </button>
+
+              <button class="btn btn-secondary" onclick="switchTab('tabVideos')">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+                Ver Vídeos da Comunidade
+              </button>
+            </div>
+
+            <!-- Chips de Vantagens -->
+            <div class="hero-features-chips">
+              <div class="chip-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                <span>Autenticidade Verificada</span>
+              </div>
+              <div class="chip-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                <span>Cotação em R$ em Tempo Real</span>
+              </div>
+              <div class="chip-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                <span>Comunidade Ativa de Unboxing</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Coluna Showcase 3D Card Interativo -->
+          <div class="hero-card-showcase">
+            <!-- Chip Flutuante Esquerdo -->
+            <div class="floating-foil-chip floating-foil-chip-1">
+              <div class="chip-icon">★</div>
+              <div>
+                <div class="chip-data-title">Graduação PSA</div>
+                <div class="chip-data-val">GEM MINT 10</div>
+              </div>
+            </div>
+
+            <!-- Wrapper da Carta 3D com Mouse Tilt -->
+            <div class="showcase-floating-card-wrapper" onclick="openCardDetailModal('c1')">
+              <div class="showcase-card-inner">
+                <div class="showcase-card-img-wrap">
+                  <img src="./img/Nicol bolas, dragon-god.jpg" alt="Nicol Bolas, Dragon-God" class="showcase-card-img" />
+                  <div class="showcase-card-overlay-badge">
+                    <span class="badge badge-mitica">MÍTICA DOURADA</span>
+                  </div>
+                </div>
+
+                <div class="showcase-card-info">
+                  <div class="showcase-card-name">Nicol Bolas, Dragon-God</div>
+                  <div class="showcase-card-set">War of the Spark • 1ª Edição Gold Foil</div>
+                  
+                  <div class="showcase-card-price-row">
+                    <span style="font-size:0.8rem; color:var(--text-muted);">VALOR ESTIMADO</span>
+                    <span class="showcase-card-price">R$ 3.000,00</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Chip Flutuante Direito -->
+            <div class="floating-foil-chip floating-foil-chip-2">
+              <div class="chip-icon">💎</div>
+              <div>
+                <div class="chip-data-title">Último Pull</div>
+                <div class="chip-data-val">Booster Dourado #01</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Banner de Estatísticas Ao Vivo -->
+      <div class="stats-banner">
+        <div class="container stats-grid">
+          <div class="stat-item">
+            <div class="stat-number text-gold-gradient" id="homeTotalCards">12.450+</div>
+            <div class="stat-label">CARTAS REGISTRADAS NO COFRE</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number text-gold-gradient" id="homeTotalValue">R$ 3.840.000</div>
+            <div class="stat-label">VALOR TOTAL DA COLEÇÃO</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number text-gold-gradient">84.920+</div>
+            <div class="stat-label">BOOSTERS ABERTOS NA COMUNIDADE</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number text-gold-gradient">99.8%</div>
+            <div class="stat-label">AUTENTICIDADE & SATISFAÇÃO</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Seção de Recursos / Diferenciais -->
+      <div class="features-section">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-tag">POR QUE ESCOLHER O GOLD PACKS?</span>
+            <h2 class="section-title">A Plataforma Definitiva para Colecionadores Exigentes</h2>
+            <p class="section-desc">Construído de colecionadores para colecionadores, reunindo o melhor em tecnologia, precificação de cartas e entretenimento.</p>
+          </div>
+
+          <div class="features-grid">
+            <!-- Feature 1 -->
+            <div class="feature-card">
+              <div class="feature-icon-box">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+              </div>
+              <h3 class="feature-title">Cofre de Cartas & Precificação</h3>
+              <p class="feature-desc">Cadastre cartas com imagens de alta definição, defina o tipo de raridade (Mítica, Lendária, Épica, Rara ou Comum), registre o valor em reais e acompanhe o patrimônio da sua coleção em tempo real.</p>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="feature-card">
+              <div class="feature-icon-box">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+              </div>
+              <h3 class="feature-title">Gold Packs TV & Unboxings</h3>
+              <p class="feature-desc">Poste seus vídeos abrindo caixas e boosters direto do YouTube ou MP4. Compartilhe a emoção do pull, receba curtidas e interaja com colecionadores de todo o Brasil nos comentários.</p>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="feature-card">
+              <div class="feature-icon-box">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+              </div>
+              <h3 class="feature-title">Simulador de Booster Interativo</h3>
+              <p class="feature-desc">Rasgue pacotes virtuais com física de rasgo, luz holográfica e sons procedurais realistas. Tire cartas míticas e adicione os pulls diretamente ao seu registro com um clique.</p>
+            </div>
+          </div>
+
+          <!-- Teaser Banner Interativo -->
+          <div class="teaser-banner">
+            <div class="teaser-content">
+              <h3>Quer testar sua sorte agora mesmo?</h3>
+              <p>Abra seu primeiro <strong>Gold Pack Dourado</strong> gratuito com garantia de carta rara e sinta a magia dos cards holográficos brilharem na tela.</p>
+              <button class="btn btn-gold" onclick="switchTab('tabSimulator')">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                Abrir Pack Grátis Agora
+              </button>
+            </div>
+            <div class="teaser-pack-preview" onclick="switchTab('tabSimulator')" style="cursor:pointer;">
+              <div class="pack-illustration pack-gold-theme" style="width:160px; height:230px;">
+                <div class="pack-logo-seal">GOLD PACK</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         ABA 2: COFRE & REGISTRO DE CARTAS (CATÁLOGO COMPLETO)
+         ========================================================================== -->
+    <section id="tabVault" class="view-tab">
+      <div class="catalog-section">
+        <div class="container">
+          <!-- Banner Superior de Métricas do Cofre -->
+          <div class="vault-metrics-strip">
+            <div class="metric-card">
+              <div class="metric-icon-wrap">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line></svg>
+              </div>
+              <div>
+                <div class="metric-data-title">Total de Cartas</div>
+                <div class="metric-data-val" id="metricTotalCount">0</div>
+              </div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-icon-wrap">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+              </div>
+              <div>
+                <div class="metric-data-title">Valor do Cofre</div>
+                <div class="metric-data-val" id="metricTotalValue" style="color:#10B981;">R$ 0,00</div>
+              </div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-icon-wrap">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              </div>
+              <div>
+                <div class="metric-data-title">Carta Mais Cara</div>
+                <div class="metric-data-val" id="metricHighestPrice" style="color:var(--gold-400);">R$ 0,00</div>
+              </div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-icon-wrap">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+              </div>
+              <div>
+                <div class="metric-data-title">Média por Carta</div>
+                <div class="metric-data-val" id="metricAvgPrice">R$ 0,00</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Barra de Ações & Filtros -->
+          <div class="catalog-toolbar">
+            <!-- Linha 1: Busca e Botão de Cadastro -->
+            <div class="toolbar-top-row">
+              <div class="search-input-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" id="cardSearchInput" class="search-input" placeholder="Buscar por nome da carta, edição ou coleção..." />
+              </div>
+
+              <div class="toolbar-actions-group">
+                <button class="btn btn-gold" onclick="openAddCardModal()">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                  + Registrar Nova Carta
+                </button>
+              </div>
+            </div>
+
+            <!-- Linha 2: Filtros de Categoria, Raridade, Preço Máximo e Ordenação -->
+            <div class="toolbar-filters-row">
+              <div class="filter-group">
+                <label class="filter-label">Jogo / Categoria</label>
+                <select id="categoryFilter" class="filter-select">
+                  <option value="">Todas as Categorias</option>
+                  <option value="Pokémon TCG">Pokémon TCG</option>
+                  <option value="Magic: The Gathering">Magic: The Gathering</option>
+                  <option value="Yu-Gi-Oh!">Yu-Gi-Oh!</option>
+                  <option value="Original Gold Packs">Original Gold Packs</option>
+                </select>
+              </div>
+
+              <div class="filter-group">
+                <label class="filter-label">Raridade da Carta</label>
+                <select id="rarityFilter" class="filter-select">
+                  <option value="">Todas as Raridades</option>
+                  <option value="Mítica Dourada">Mítica Dourada</option>
+                  <option value="Lendária">Lendária</option>
+                  <option value="Épica">Épica</option>
+                  <option value="Super Rara">Super Rara</option>
+                  <option value="Rara">Rara</option>
+                  <option value="Comum">Comum</option>
+                </select>
+              </div>
+
+              <div class="filter-group">
+                <label class="filter-label">Preço Máximo (R$)</label>
+                <input type="number" id="priceFilter" class="filter-select" placeholder="Ex: 2000" />
+              </div>
+
+              <div class="filter-group">
+                <label class="filter-label">Ordenar Por</label>
+                <select id="sortFilter" class="filter-select">
+                  <option value="price-desc">Maior Preço (R$)</option>
+                  <option value="price-asc">Menor Preço (R$)</option>
+                  <option value="name-asc">Nome (A - Z)</option>
+                  <option value="recent">Mais Recentes</option>
+                </select>
+              </div>
+
+              <button id="resetFiltersBtn" class="btn-reset-filters">Limpar Filtros</button>
+            </div>
+          </div>
+
+          <!-- Grid de Cartas Cadastradas -->
+          <div id="cardsGrid" class="cards-grid">
+            <!-- Inserido dinamicamente pelo app.js -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         ABA 3: GOLD PACKS TV (VÍDEOS DE ABERTURA DE PACKS)
+         ========================================================================== -->
+    <section id="tabVideos" class="view-tab">
+      <div class="videos-section">
+        <div class="container">
+          <!-- Hero Banner da TV -->
+          <div class="videos-hero-banner">
+            <div class="videos-hero-text">
+              <span class="badge badge-mitica" style="margin-bottom:12px;">🔴 COMUNIDADE GOLD PACKS TV</span>
+              <h2>Vídeos de Abertura de Boosters</h2>
+              <p>Assista aos momentos mais eletrizantes de abertura de packs e god pulls da nossa comunidade de colecionadores. Compartilhe o seu vídeo e mostre sua sorte para o mundo!</p>
+            </div>
+            <div>
+              <button class="btn btn-gold" onclick="openAddVideoModal()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                + Postar Meu Vídeo de Abertura
+              </button>
+            </div>
+          </div>
+
+          <!-- Tags de Filtro Rápido -->
+          <div class="video-filter-tags">
+            <button class="tag-btn active" data-filter="all">Todos os Vídeos</button>
+            <button class="tag-btn" data-filter="gold">Boosters Dourados</button>
+            <button class="tag-btn" data-filter="boxes">Boxes & Displays</button>
+            <button class="tag-btn" data-filter="epic">🔥 God Packs & Épicos</button>
+            <button class="tag-btn" data-filter="most-liked">Mais Curtidos</button>
+          </div>
+
+          <!-- Grid de Vídeos da Comunidade -->
+          <div id="videosGrid" class="videos-grid">
+            <!-- Inserido dinamicamente pelo app.js -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         ABA 4: SIMULADOR DE BOOSTER PACKS (EXPERIÊNCIA INTERATIVA)
+         ========================================================================== -->
+    <section id="tabSimulator" class="view-tab">
+      <div class="simulator-section">
+        <div class="container">
+          <!-- Intro -->
+          <div class="sim-intro-box">
+            <span class="section-tag">SIMULADOR 3D OFICIAL</span>
+            <h2>Abra seus Boosters Dourados</h2>
+            <p>Selecione seu booster favorito, rasgue o lacre e vire as cartas para revelar suas raridades. Todas as cartas tiradas podem ser enviadas diretamente para seu cofre!</p>
+          </div>
+
+          <!-- Seleção de Booster -->
+          <div class="pack-selection-grid">
+            <!-- Pacote Prata -->
+            <div class="pack-choice-card" data-pack="silver" onclick="selectPackType('silver')">
+              <div class="pack-illustration pack-silver-theme">
+                <div class="pack-logo-seal" style="font-size:0.9rem;">PRATA</div>
+              </div>
+              <h3 class="pack-choice-title">Booster de Prata</h3>
+              <p class="pack-choice-desc">3 cartas colecionáveis por booster com chances equilibradas.</p>
+              <span class="pack-guarantee-badge">🛡️ 1 Rara Garantida</span>
+            </div>
+
+            <!-- Pacote Safira -->
+            <div class="pack-choice-card" data-pack="sapphire" onclick="selectPackType('sapphire')">
+              <div class="pack-illustration pack-sapphire-theme">
+                <div class="pack-logo-seal" style="font-size:0.9rem;">SAFIRA</div>
+              </div>
+              <h3 class="pack-choice-title">Booster Safira Épico</h3>
+              <p class="pack-choice-desc">4 cartas colecionáveis com chances aumentadas de cartas holográficas.</p>
+              <span class="pack-guarantee-badge">💎 1 Épica Garantida</span>
+            </div>
+
+            <!-- Pacote Ouro (Lendário) -->
+            <div class="pack-choice-card selected pack-gold" data-pack="gold" onclick="selectPackType('gold')">
+              <div class="pack-illustration pack-gold-theme">
+                <div class="pack-logo-seal" style="font-size:0.9rem;">GOLD PACK</div>
+              </div>
+              <h3 class="pack-choice-title">Gold Pack Lendário</h3>
+              <p class="pack-choice-desc">5 cartas premium com acabamento dourado e drop rates lendários.</p>
+              <span class="pack-guarantee-badge" style="background:var(--gold-gradient); color:#120e04; font-weight:800;">👑 1 Mítica Dourada Garantida</span>
+            </div>
+          </div>
+
+          <!-- Arena de Abertura do Pack -->
+          <div class="opening-stage-box">
+            <div class="stage-ambient-light"></div>
+
+            <!-- Pack Físico Central -->
+            <div id="stagePackUnit" class="stage-pack-unit" onclick="ripAndOpenPack()">
+              <div id="stageFoilWrap" class="pack-foil-wrapper pack-gold-theme">
+                <!-- Faixa de Rasgo -->
+                <div class="pack-tear-strip">
+                  <div class="tear-pull-tab">PULL</div>
+                </div>
+
+                <div style="font-size:0.75rem; font-weight:800; letter-spacing:2px; color:rgba(0,0,0,0.6); margin-top:20px;">
+                  SÉRIE LIMITADA COLECIONADOR
+                </div>
+
+                <div class="pack-logo-seal" id="stagePackTitle">
+                  GOLD PACK DOURADO
+                </div>
+
+                <div style="font-size:0.75rem; font-weight:800; color:#120e04;">
+                  ✨ CLIQUE PARA RASGAR O PACOTE ✨
+                </div>
+              </div>
+            </div>
+
+            <!-- Botão de Rasgar -->
+            <button id="ripPackBtn" class="btn btn-gold" onclick="ripAndOpenPack()" style="margin-top:10px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="9" y1="15" x2="15" y2="15"></line></svg>
+              Rasgar Pacote!
+            </button>
+
+            <!-- Grid de Cartas Reveladas (Flip Cards 3D) -->
+            <div id="pulledCardsGrid" class="pulled-cards-reveal-grid">
+              <!-- Cartas inseridas dinamicamente pelo simulador -->
+            </div>
+
+            <!-- Controles pós-abertura -->
+            <div id="packActionControls" style="display:none; gap:14px; margin-top:20px; flex-wrap:wrap; justify-content:center;">
+              <button class="btn btn-gold" onclick="savePulledCardsToVault()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                Guardar Cartas no Meu Cofre
+              </button>
+
+              <button class="btn btn-secondary" onclick="flipAllPulledCards()">
+                Virar Todas as Cartas
+              </button>
+
+              <button class="btn btn-gold-outline" onclick="selectPackType(currentPackType)">
+                Abrir Outro Pack
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==========================================================================
+       MODAL 1: REGISTRAR / EDITAR CARTA
+       ========================================================================== -->
+  <div id="cardModal" class="modal-backdrop">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <div class="logo-icon" style="width:34px; height:34px; font-size:18px;">GP</div>
+          <h3 id="modalCardTitle" class="modal-title">Registrar Nova Carta</h3>
+        </div>
+        <button class="modal-close-btn" onclick="closeCardModal()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+
+      <form id="cardForm">
+        <div class="modal-body">
+          <input type="hidden" id="cardIdInput" />
+
+          <!-- Nome da Carta -->
+          <div class="form-group">
+            <label class="form-label">Nome da Carta <span class="req">*</span></label>
+            <input type="text" id="cardNomeInput" class="form-input" placeholder="Ex: Nicol Bolas, Charizard VMAX, Mago do Caos..." required />
+          </div>
+
+          <!-- Linha 2 Colunas: Categoria & Raridade -->
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label">Categoria / TCG <span class="req">*</span></label>
+              <select id="cardCategoriaInput" class="form-select" required>
+                <option value="Pokémon TCG">Pokémon TCG</option>
+                <option value="Magic: The Gathering">Magic: The Gathering</option>
+                <option value="Yu-Gi-Oh!">Yu-Gi-Oh!</option>
+                <option value="Original Gold Packs">Original Gold Packs</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Tipo de Raridade <span class="req">*</span></label>
+              <select id="cardRaridadeInput" class="form-select" required>
+                <option value="Mítica Dourada">Mítica Dourada (Gold Rare)</option>
+                <option value="Lendária">Lendária</option>
+                <option value="Épica">Épica</option>
+                <option value="Super Rara">Super Rara</option>
+                <option value="Rara">Rara</option>
+                <option value="Comum">Comum</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Linha 2 Colunas: Valor & Condição -->
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label">Valor Estimado de Mercado (R$) <span class="req">*</span></label>
+              <input type="number" id="cardPrecoInput" class="form-input" placeholder="Ex: 3000" step="0.01" min="1" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Condição / Graduação</label>
+              <select id="cardCondicaoInput" class="form-select">
+                <option value="Mint (PSA 10)">Mint (PSA 10 Impecável)</option>
+                <option value="Near Mint (PSA 9)">Near Mint (Quase Perfeita)</option>
+                <option value="Excellent">Excellent (Excelente)</option>
+                <option value="Good">Good (Bom)</option>
+                <option value="Played">Played (Com Marcas de Uso)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Linha 2 Colunas: Acabamento & Edição -->
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label">Acabamento da Carta</label>
+              <select id="cardAcabamentoInput" class="form-select">
+                <option value="Gold Foil Holográfica">Gold Foil Holográfica</option>
+                <option value="Foil Holográfica">Foil Holográfica</option>
+                <option value="Texturizada Especial">Texturizada Especial</option>
+                <option value="Secret Rare">Secret Rare</option>
+                <option value="Normal">Normal</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Edição / Coleção</label>
+              <input type="text" id="cardEdicaoInput" class="form-input" placeholder="Ex: War of the Spark #193, 1ª Edição..." />
+            </div>
+          </div>
+
+          <!-- Imagem da Carta -->
+          <div class="form-group">
+            <label class="form-label">Imagem da Carta</label>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <select id="cardImgSelect" class="form-select">
+                <option value="">-- Escolher imagem da Galeria Gold Packs --</option>
+                <option value="./img/Nicol bolas, dragon-god.jpg">Nicol Bolas, Dragon-God</option>
+                <option value="./img/Umbreon ex.jpg">Umbreon EX Moonbreon</option>
+                <option value="./img/Greninja EX 214_167 Twilight Masquerade.jpg">Greninja EX Special Illustration</option>
+                <option value="./img/Mago Do Caos_.jpg">Mago do Caos das Trevas</option>
+                <option value="./img/Sol Ring alter.jpg">Sol Ring Masterpiece</option>
+                <option value="./img/Full art card 23.jpg">Charizard & Reshiram Tag Team GX</option>
+                <option value="./img/carta-arkanon.png">Arkanon, Lorde das Trevas</option>
+                <option value="./img/carta-lymara.png">Lymara, Guardiã Celestial</option>
+                <option value="./img/carta-maldrik.png">Maldrik, O Conquistador</option>
+                <option value="./img/carta-kaelthar.png">Kaelthar, Sentinela do Vale</option>
+                <option value="./img/carta-drahven.png">Drahven, Caçador Noturno</option>
+                <option value="./img/carta-nyxsombra.png">Nyxsombra, Lâmina Furtiva</option>
+              </select>
+
+              <div style="display:flex; gap:10px; align-items:center;">
+                <input type="text" id="cardImgUrlInput" class="form-input" placeholder="Ou cole a URL de uma imagem da web..." style="flex:1;" />
+                <label class="btn btn-secondary" style="padding:11px 16px; cursor:pointer; font-size:0.85rem; white-space:nowrap;">
+                  📁 Do PC
+                  <input type="file" id="cardImgFileInput" accept="image/*" style="display:none;" />
+                </label>
+              </div>
+
+              <!-- Preview da Imagem -->
+              <div class="img-preview-box">
+                <img id="cardImgPreview" src="./img/Nicol bolas, dragon-god.jpg" alt="Preview da carta" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Descrição / Lore -->
+          <div class="form-group">
+            <label class="form-label">Descrição / Lore da Carta</label>
+            <textarea id="cardDescricaoInput" class="form-textarea" placeholder="Descreva os efeitos, habilidades ou história da carta..."></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeCardModal()">Cancelar</button>
+          <button type="submit" class="btn btn-gold">Salvar Carta no Cofre</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 2: DETALHES 3D DA CARTA
+       ========================================================================== -->
+  <div id="cardDetailModal" class="modal-backdrop">
+    <div class="modal-box" style="max-width: 800px;">
+      <div class="modal-header">
+        <h3 class="modal-title">Detalhes da Carta</h3>
+        <button class="modal-close-btn" onclick="closeCardDetailModal()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <div id="cardDetailBody" class="modal-body">
+        <!-- Renderizado dinamicamente -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 3: POSTAR NOVO VÍDEO DE ABERTURA
+       ========================================================================== -->
+  <div id="videoModal" class="modal-backdrop">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <div class="logo-icon" style="width:34px; height:34px; font-size:18px;">GP</div>
+          <h3 class="modal-title">Postar Vídeo de Abertura</h3>
+        </div>
+        <button class="modal-close-btn" onclick="closeVideoModal()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+
+      <form id="videoForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">Título do Vídeo <span class="req">*</span></label>
+            <input type="text" id="videoTituloInput" class="form-input" placeholder="Ex: TIREI CARTA MÍTICA NO BOOSTER DOURADO!" required />
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label">Nome do Colecionador / Canal <span class="req">*</span></label>
+              <input type="text" id="videoAutorInput" class="form-input" placeholder="Ex: Kaleb Santos" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Tipo de Booster Aberto</label>
+              <input type="text" id="videoPackInput" class="form-input" placeholder="Ex: Booster Dourado 1ª Edição" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Link do Vídeo (YouTube) <span class="req">*</span></label>
+            <input type="url" id="videoUrlInput" class="form-input" placeholder="https://www.youtube.com/watch?v=..." required />
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label">Drop Principal / Melhor Carta Tirada</label>
+              <input type="text" id="videoPullInput" class="form-input" placeholder="Ex: Nicol Bolas Mítico" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Valor Estimado do Drop (R$)</label>
+              <input type="number" id="videoValorInput" class="form-input" placeholder="Ex: 3000" />
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeVideoModal()">Cancelar</button>
+          <button type="submit" class="btn btn-gold">Publicar na Gold Packs TV</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 4: PLAYER DE VÍDEO CINEMÁTICO COM COMENTÁRIOS
+       ========================================================================== -->
+  <div id="videoPlayerModal" class="modal-backdrop">
+    <div class="modal-box" style="max-width: 860px;">
+      <div class="modal-header">
+        <h3 class="modal-title">Gold Packs Cinema</h3>
+        <button class="modal-close-btn" onclick="closeVideoPlayerModal()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <div id="videoPlayerBody" class="modal-body">
+        <!-- Injetado dinamicamente -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       RODAPÉ DE LUXO (FOOTER)
+       ========================================================================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Marca e Missão -->
+        <div class="footer-brand">
+          <div class="logo-brand">
+            <div class="logo-icon">GP</div>
+            <div class="logo-text-wrap">
+              <span class="logo-text-main">Gold Packs</span>
+              <span class="logo-text-sub">Collectors & Boosters</span>
+            </div>
+          </div>
+          <p>O templo definitivo para colecionadores e entusiastas de cartas raras, cotação de mercado, transmissões de unboxing e abertura de boosters.</p>
+        </div>
+
+        <!-- Links Rápidos -->
+        <div class="footer-col">
+          <h4>Plataforma</h4>
+          <ul class="footer-links">
+            <li><a href="javascript:void(0)" onclick="switchTab('tabHome')">Início</a></li>
+            <li><a href="javascript:void(0)" onclick="switchTab('tabVault')">Cofre de Cartas</a></li>
+            <li><a href="javascript:void(0)" onclick="switchTab('tabVideos')">Gold Packs TV</a></li>
+            <li><a href="javascript:void(0)" onclick="switchTab('tabSimulator')">Abrir Boosters</a></li>
+          </ul>
+        </div>
+
+        <!-- Categorias TCG -->
+        <div class="footer-col">
+          <h4>Categorias</h4>
+          <ul class="footer-links">
+            <li><a href="javascript:void(0)" onclick="switchTab('tabVault');">Pokémon TCG</a></li>
+            <li><a href="javascript:void(0)" onclick="switchTab('tabVault');">Magic: The Gathering</a></li>
+            <li><a href="javascript:void(0)" onclick="switchTab('tabVault');">Yu-Gi-Oh!</a></li>
+            <li><a href="javascript:void(0)" onclick="switchTab('tabVault');">Original Gold Packs</a></li>
+          </ul>
+        </div>
+
+        <!-- Segurança & Contato -->
+        <div class="footer-col">
+          <h4>Negociações & Suporte</h4>
+          <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:12px;">
+            Dúvidas sobre autenticação ou negociação de cartas do cofre?
+          </p>
+          <a href="https://wa.me/5511988185893?text=Olá,tenho interesse em negociar cartas no Gold Packs" target="_blank" class="btn btn-whatsapp" style="padding:10px 16px; font-size:0.88rem;">
+            Atendimento WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <!-- Barra Inferior de Direitos -->
+      <div class="footer-bottom">
+        <div>
+          © 2025 Gold Packs • Todos os direitos reservados.
+        </div>
+        <div>
+          Desenvolvido com excelência visual e tecnologia web de ponta.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts da Aplicação -->
+  <script src="./js/app.js"></script>
+</body>
+</html>
